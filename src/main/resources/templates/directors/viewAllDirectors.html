@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Все режиссеры</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Все режиссеры</h1>
+  <div class="row">
+    <div class="col">
+      <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('LIBRARIAN'))"
+         th:href="@{/directors/add}"
+         class="btn btn-success"
+         role="button"
+         style="float: right"
+         aria-disabled="true">Добавить режиссера</a>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Фамилия Имя Отчество</th>
+      <th scope="col">Рейтинг</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="director : ${directors}">
+      <td th:text="${director.getDirectorFIO()}"></td>
+      <td th:text="${director.getPosition()}"></td>
+      <td>
+        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('LIBRARIAN'))">
+          <a class="btn btn-sm btn-outline-success" th:href="'/directors/update/' + ${director.getId()}">Обновить</a>
+          <a th:if="${!director.isDeleted()}" class="btn btn-sm btn-outline-danger" th:href="'/directors/delete/' + ${director.getId()}"
+             onclick="return confirm('Вы действительно хотите удалить режиссера?');">Удалить</a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

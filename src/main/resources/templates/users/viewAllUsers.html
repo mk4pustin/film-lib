@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Пользователи фильмотеки</title>
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Все пользователи фильмотеки</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Логин</th>
+      <th scope="col">Пароль</th>
+      <th scope="col">Почта</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.getFirstName()}"></td>
+      <td th:text="${user.getLastName()}"></td>
+      <td th:text="${user.getLogin()}"></td>
+      <td th:text="${user.getPassword}"></td>
+      <td th:text="${user.getEmail()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+

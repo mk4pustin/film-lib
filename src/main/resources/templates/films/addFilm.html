@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить фильм</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3">Добавить фильм</h3>
+    <form enctype="multipart/form-data" class="needs-validation" novalidate style="max-width: 50vw" method="POST"
+          th:action="@{/films/add}" th:object="${filmForm}">
+        <div class="mt-3 row g-2">
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="title" type="text" class="form-control" id="title" placeholder="Название фильма"
+                           required>
+                    <label for="title">Название</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" name="genre" id="genre" required>
+                        <option selected value="default">Выберете жанр из списка</option>
+                        <option th:each="genre : ${T(ru.sber.kapustin.filmlib.model.Genre).values()}"
+                                th:value="${genre}" th:text="${genre.getGenreText()}"></option>
+                    </select>
+                    <label for="genre" class="form-label">Жанр</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="amount" type="number" class="form-control" id="amount" placeholder="Количество книг"
+                           value="1" required>
+                    <label for="amount">Количество</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="mt-3 row g-2">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="country" type="text" class="form-control" id="country" placeholder="Страна"
+                               required>
+                        <label for="country" class="form-label">Страна</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="premierYear" type="date" class="form-control" id="premierYear"
+                               placeholder="Дата премьеры" required>
+                        <label for="premierYear" class="form-label">Дата премьеры</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" name="directorIds" id="directorIds">
+                        <option selected>Выберете режиссера из списка:</option>
+                        <option th:each="director : ${directors}"
+                                th:value="${director.getId()}" th:text="${director.getDirectorFIO()}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" onclick="validateForm()">Добавить</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

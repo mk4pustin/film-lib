@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Мой профиль</h1>
+    <form class="row g-1">
+        <div class="mb-2 row">
+            <label for="login" class="col-sm-2 col-form-label no-border">Логин: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getLogin()}" type="text" readonly class="form-control-plaintext" id="login">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="firstName" class="col-sm-2 col-form-label">Имя: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getFirstName()}" class="form-control-plaintext" id="firstName">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="middleName" class="col-sm-2 col-form-label">Отчество: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getMiddleName()}" class="form-control-plaintext" id="middleName">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="lastName" class="col-sm-2 col-form-label">Фамилия: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getLastName()}" class="form-control-plaintext" id="lastName">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="phone" class="col-sm-2 col-form-label">Телефон: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getPhone()}" class="form-control-plaintext" id="phone">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="address" class="col-sm-2 col-form-label">Адрес: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getAddress()}" class="form-control-plaintext" id="address">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="email" class="col-sm-2 col-form-label">Почта: </label>
+            <div class="col-sm-10">
+                <p th:text="${user.getEmail()}" class="form-control-plaintext" id="email">
+            </div>
+        </div>
+
+        <hr class="hr"/>
+        <div class="mt-2">
+            <a sec:authorize="!hasRole('ADMIN')" class="btn btn-primary"
+               href="/users/changeProfile">Изменить профиль</a>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
